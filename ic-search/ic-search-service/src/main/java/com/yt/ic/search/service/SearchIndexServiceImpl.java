@@ -28,8 +28,8 @@ public class SearchIndexServiceImpl implements SearchIndexService {
             throw new IllegalArgumentException();
         }
         maxSize = (maxSize <= 0 || maxSize > 100 ? 10 : maxSize);
-        return null;
-//        return searchCore.getIndexes(scope, query, indexField, searchMode, maxSize);
+//        return null;
+        return searchCore.getIndexes(scope, query, indexField, searchMode, maxSize);
     }
 
 //    @Override

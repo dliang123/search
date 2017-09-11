@@ -1,11 +1,15 @@
 package com.yt.ic.search.service;
 
 
+import com.google.common.collect.Lists;
+import com.yt.demo.core.dao.BrandDao;
+import com.yt.demo.core.dao.ModelsDao;
+import com.yt.demo.core.entity.BrandEntity;
+import com.yt.demo.core.entity.ModelEntity;
 import com.yt.ic.search.api.CreateProductIndexService;
 import com.yt.ic.search.model.CarIndex;
 import com.yt.ic.search.model.Index;
 import com.yt.ic.search.model.IndexField;
-import com.yt.ic.search.model.ModelsResponse;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,50 +33,60 @@ public class CreateProductIndexServiceImpl implements CreateProductIndexService 
     private static final Logger logger =
             LoggerFactory.getLogger(CreateProductIndexService.class);
 
-//    @Autowired
-//    private BrandWebService brandService;
-//
-//    @Autowired
-//    private ModelWebService modelService;
-//
-//    @Autowired
-//    private SPUWebService spuService;
 
     @Autowired
     private SearchCore searchCore;
+    @Autowired
+    private BrandDao brandDao;
+    @Autowired
+    private ModelsDao modelsDao;
 
     @Override
     public void createCarSeriesIndex() {
-//        List<BrandResponse> brands =
-//                brandService.findBrandsByCategoryCode("0", null, Boolean.FALSE);
-//        List<Long> ids = brands.stream().map(BrandResponse :: getId)
-//                .collect(Collectors.toList());
-//        Map<Long, String> brandMap = brands.stream()
-//                .collect(Collectors.toMap(BrandResponse :: getId, BrandResponse :: getZhName, (b1, b2) -> b1));
-//
-//        int i = 0;
-//        int j = i + 50;
-//        while(i < ids.size()) {
-//            ModelsQueryRequest request = new ModelsQueryRequest();
-//            request.setBrandIds(ids.subList(i, j > ids.size() ? ids.size() : j));
-//            request.setParentId(0L);
-//            List<ModelsResponse> models;
-//            try {
-//                // 分页查询车系
-//                models = modelService.queryModels(request);
-//                // 建立索引
-//                List<Index> indexes = models.stream()
-//                        .map(model -> modelToIndex(model, brandMap)).collect(Collectors.toList());
-//                searchCore.createIndexes(CarIndex.SERIES_SCOPE, indexes);
-//
-//                Thread.sleep(200); // 防止CPU过高
-//            } catch (Exception e) {
-//                logger.error(e.getMessage(), e);
-//            } finally {
-//                i = j;
-//                j += 50;
-//            }
-//        }
+        List<BrandEntity> brands =
+                brandDao.findAll();
+        List<Long> ids = brands.stream().map(BrandEntity::getId)
+                .collect(Collectors.toList());
+        Map<Long, String> brandMap = brands.stream()
+                .collect(Collectors.toMap(BrandEntity::getId, BrandEntity::getZhName, (b1, b2) -> b1));
+
+        int i = 0;
+        int j = i + 50;
+        while (i < ids.size()) {
+            List<Long> theIds = ids.subList(i, j > ids.size() ? ids.size() : j);
+
+            List<ModelEntity> models = modelsDao.findByBrandIdInAndIsDelete(theIds, false);
+            try {
+                // 分页查询车系
+                // 建立索引
+                logger.info("品牌ids:" + theIds.toString());
+                List<Index> indexes = models.stream()
+                        .map(model -> modelToIndex(model, brandMap)).collect(Collectors.toList());
+                searchCore.createIndexes(CarIndex.SERIES_SCOPE, indexes);
+                Thread.sleep(200); // 防止CPU过高
+            } catch (Exception e) {
+                logger.error(e.getMessage(), e);
+            } finally {
+                i = j;
+                j += 50;
+            }
+        }
+    }
+
+    private Index modelToIndex(ModelEntity model, Map<Long, String> brandMap) {
+        List<IndexField> fields = Lists.newArrayList();
+        fields.add(new IndexField(CarIndex.BRAND_ID, String.valueOf(model.getBrandId()), false, false));
+        fields.add(new IndexField(CarIndex.SERIES_ID, String.valueOf(model.getId()), false, false));
+        fields.add(new IndexField(CarIndex.SERIES_NAME, model.getZhName(), false, false));
+
+        String brandName = brandMap.get(model.getBrandId());
+        String content = null != brandName
+                ? brandName + " " + model.getZhName() : model.getZhName();
+        fields.add(new IndexField(CarIndex.CONTENT, content, false, true));
+
+        Index index = new Index();
+        index.setFields(fields);
+        return index;
     }
 
     @Override
@@ -103,7 +117,7 @@ public class CreateProductIndexServiceImpl implements CreateProductIndexService 
 //            } finally {
 //                pageIndex++;
 //            }
-        } while(!isLastPage);
+        } while (!isLastPage);
     }
 
     @Override
@@ -164,7 +178,7 @@ public class CreateProductIndexServiceImpl implements CreateProductIndexService 
 //    }
 
     private BigDecimal convertToBPrice(BigDecimal toCPrice) {
-        if(toCPrice == null) {
+        if (toCPrice == null) {
             return null;
         }
         return toCPrice.divide(new BigDecimal(100));

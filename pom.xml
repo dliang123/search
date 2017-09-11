@@ -109,11 +109,6 @@
                 <version>${project.version}</version>
             </dependency>
             <dependency>
-                <groupId>com.yt.search</groupId>
-                <artifactId>ic-search</artifactId>
-                <version>${project.version}</version>
-            </dependency>
-            <dependency>
                 <groupId>mysql</groupId>
                 <artifactId>mysql-connector-java</artifactId>
                 <version>${mysql.driver.version}</version>
