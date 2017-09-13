@@ -9,7 +9,6 @@ import java.util.List;
 
 /**
  * 
- * @author joeyzheng
  * @date 2017年2月12日
  */
 public interface SPUDao extends JpaRepository<SPUEntity, Long> {

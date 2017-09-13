@@ -7,7 +7,6 @@ import java.util.Date;
 
 /**
  * 型号
- * Created by zhangshixin on 17/2/6.
  */
 @Entity
 @Table(name = "models")

@@ -34,6 +34,7 @@ public class SearchController {
     @RequestMapping(value = "createSeriesIndex", method = RequestMethod.POST)
     @ResponseBody
     public void createSeriesIndex() {
+        createProductIndexService.deleteCarSeriesIndex();
         createProductIndexService.createCarSeriesIndex();
     }
 
@@ -41,6 +42,6 @@ public class SearchController {
     @RequestMapping(value = "queryIndexes", method = RequestMethod.GET)
     @ResponseBody
     public List<Index> queryIndexes(@RequestParam String scope,@RequestParam String keyword, @RequestParam String fieldName) throws IOException {
-        return searchIndexService.queryIndexes(scope, keyword, fieldName, SearchMode.NOT_ANALYZED, 10);
+        return searchIndexService.queryIndexes(scope, keyword, fieldName, SearchMode.ANALYZED_AND_ANY_IN, 10);
     }
 }

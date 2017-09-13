@@ -1,19 +1,20 @@
 package com.yt.portal.controller;
 
-import org.springframework.context.annotation.PropertySource;
+
+import org.springframework.boot.context.properties.ConfigurationProperties;
 
 /**
  * Created by jackdeng on 2017/9/12.
  */
-@PropertySource(value = "Abc")
-public class AA {
-    private String a;
+@ConfigurationProperties(value = "createIndexConfig.yml")
+public class CreateIndexConfig {
+    private String series;
 
-    public String getA() {
-        return a;
+    public String getSeries() {
+        return series;
     }
 
-    public void setA(String a) {
-        this.a = a;
+    public void setSeries(String series) {
+        this.series = series;
     }
 }

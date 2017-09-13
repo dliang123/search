@@ -9,7 +9,6 @@ import java.util.List;
 
 /**
  * 型号
- * Created by zhangshixin on 17/2/8.
  */
 public interface ModelsDao extends JpaRepository<ModelEntity, Long> {
     List<ModelEntity> findByBrandIdAndIsDelete(Long brandId, Boolean aFalse);

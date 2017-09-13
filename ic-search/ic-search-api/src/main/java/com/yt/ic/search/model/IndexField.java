@@ -4,7 +4,6 @@ import java.io.Serializable;
 
 /**
  * 索引项
- * Created by icewang on 2017-03-09.
  */
 public class IndexField implements Serializable {
 

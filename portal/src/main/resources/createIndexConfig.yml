@@ -1,4 +1,2 @@
-a:
-  b:1
-  c:5
-  f:3
+createIndexConfig:
+  series: car/seriesA

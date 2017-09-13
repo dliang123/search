@@ -7,7 +7,6 @@ import java.math.BigDecimal;
 
 /**
  * 产品
- * @author joeyzheng
  * @date 2017年2月7日
  */
 @Entity

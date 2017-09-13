@@ -6,7 +6,6 @@ import javax.persistence.*;
 
 /**
  * 品牌实体类
- * Created by zhangshixin on 17/2/6.
  */
 @Entity
 @Table(name = "brands")

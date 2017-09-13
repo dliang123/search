@@ -29,7 +29,6 @@ import java.util.stream.Collectors;
 
 /**
  * 搜索核心逻辑
- * Created by icewang on 2017-03-09.
  */
 @Component
 public class SearchCore {
@@ -282,4 +281,10 @@ public class SearchCore {
     public void setDebug(boolean debug) {
         this.debug = debug;
     }
+
+    public static void main(String[] args) {
+        String article="我热爱中国，中国是一个富饶的国度";
+        List<String> words = new SearchCore().splitWords(article);
+    }
+
 }

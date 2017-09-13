@@ -25,7 +25,6 @@ import java.util.stream.Collectors;
 
 /**
  * 该服务不通过RPC提供，用于job建立索引
- * Created by icewang on 2017-03-10.
  */
 @Service
 public class CreateProductIndexServiceImpl implements CreateProductIndexService {
@@ -77,7 +76,7 @@ public class CreateProductIndexServiceImpl implements CreateProductIndexService 
         List<IndexField> fields = Lists.newArrayList();
         fields.add(new IndexField(CarIndex.BRAND_ID, String.valueOf(model.getBrandId()), false, false));
         fields.add(new IndexField(CarIndex.SERIES_ID, String.valueOf(model.getId()), false, false));
-        fields.add(new IndexField(CarIndex.SERIES_NAME, model.getZhName(), false, false));
+        fields.add(new IndexField(CarIndex.SERIES_NAME, model.getZhName(), false, true));
 
         String brandName = brandMap.get(model.getBrandId());
         String content = null != brandName

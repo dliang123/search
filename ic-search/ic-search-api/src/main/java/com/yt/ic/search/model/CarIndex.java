@@ -2,7 +2,6 @@ package com.yt.ic.search.model;
 
 /**
  * 建立/查询车辆索引时使用的常量
- * Created by icewang on 2017-03-10.
  */
 public class CarIndex {
 

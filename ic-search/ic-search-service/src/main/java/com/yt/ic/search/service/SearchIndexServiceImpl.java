@@ -12,7 +12,6 @@ import java.io.IOException;
 import java.util.List;
 
 /**
- * Created by icewang on 2017-03-09.
  */
 @Service
 public class SearchIndexServiceImpl implements SearchIndexService {

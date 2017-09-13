@@ -7,8 +7,6 @@ import java.io.Serializable;
 import java.util.Date;
 
 /**
- * @author youngwang
- *         Date: 2017/2/20
  */
 public class ModelsResponse implements Serializable{
     @ApiModelProperty("主键ID")

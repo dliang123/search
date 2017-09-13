@@ -7,7 +7,6 @@ import java.util.List;
 
 /**
  * 搜索服务
- * Created by icewang on 2017-03-10.
  */
 public interface SearchProductService {
 

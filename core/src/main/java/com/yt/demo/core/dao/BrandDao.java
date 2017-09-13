@@ -10,7 +10,6 @@ import java.util.List;
 
 /**
  * 品牌
- * Created by zhangshixin on 17/2/6.
  */
 @Repository
 public interface BrandDao extends JpaRepository<BrandEntity, Long> {

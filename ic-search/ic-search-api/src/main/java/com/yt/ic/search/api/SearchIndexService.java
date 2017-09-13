@@ -9,7 +9,7 @@ import java.util.List;
 
 /**
  * 搜索索引服务
- * Created by icewang on 2017-03-09.
+ *
  */
 public interface SearchIndexService {
 

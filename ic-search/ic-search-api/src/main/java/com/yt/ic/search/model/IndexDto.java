@@ -4,7 +4,6 @@ import java.io.Serializable;
 import java.util.Map;
 
 /**
- * Created by icewang on 2017-03-13.
  */
 public class IndexDto implements Serializable {
 

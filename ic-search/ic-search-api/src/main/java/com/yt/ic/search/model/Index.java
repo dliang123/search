@@ -5,7 +5,6 @@ import java.util.Collection;
 
 /**
  * 搜索索引对象
- * Created by icewang on 2017-03-09.
  */
 public class Index implements Serializable {
 
