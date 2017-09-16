@@ -12,10 +12,6 @@
     <dependencies>
         <dependency>
             <groupId>com.yt.search</groupId>
-            <artifactId>ic-search-api</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>com.yt.search</groupId>
             <artifactId>core</artifactId>
         </dependency>
         <dependency>
@@ -32,12 +28,11 @@
         </dependency>
         <dependency>
             <groupId>com.yt.search</groupId>
-            <artifactId>ic-search-service</artifactId>
+            <artifactId>ic-search-api</artifactId>
         </dependency>
         <dependency>
             <groupId>com.google.guava</groupId>
             <artifactId>guava</artifactId>
-            <version>18.0</version>
         </dependency>
 
     </dependencies>
