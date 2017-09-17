@@ -5,6 +5,7 @@ import com.yt.demo.core.entity.SPUEntity;
 import com.yt.ic.search.model.Index;
 import com.yt.ic.search.model.SearchMode;
 import com.yt.ic.search.service.CreateProductIndexServiceImpl;
+import com.yt.ic.search.service.SearchCore;
 import com.yt.ic.search.service.SearchIndexServiceImpl;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,6 +29,8 @@ public class SearchController {
     private CreateProductIndexServiceImpl createProductIndexService;
     @Autowired
     private SearchIndexServiceImpl searchIndexService;
+    @Autowired
+    private SearchCore searchCore;
 
 
     @ApiOperation("按照品牌创建车系索引")
@@ -43,5 +46,12 @@ public class SearchController {
     @ResponseBody
     public List<Index> queryIndexes(@RequestParam String scope,@RequestParam String keyword, @RequestParam String fieldName) throws IOException {
         return searchIndexService.queryIndexes(scope, keyword, fieldName, SearchMode.ANALYZED_AND_ANY_IN, 10);
+    }
+
+    @ApiOperation("测试分词")
+    @RequestMapping(value = "testSplitWords", method = RequestMethod.GET)
+    @ResponseBody
+    public List<String> testSplitWords(@RequestParam String content) throws IOException {
+        return searchCore.splitWords(content);
     }
 }
