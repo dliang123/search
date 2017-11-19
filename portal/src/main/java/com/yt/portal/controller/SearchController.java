@@ -9,6 +9,7 @@ import com.yt.ic.search.service.SearchCore;
 import com.yt.ic.search.service.SearchIndexServiceImpl;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Bean;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
